@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useInput from '../hooks/use-input';
 
-const SimpleInput = (props) => {
+const SimpleInput = () => {
   useEffect(() => {
     document.getElementById('name').focus();
   }, []);

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import useInput from "../hooks/use-input";
 
-const BasicForm = (props) => {
-  useEffect(()=> {
+const BasicForm = () => {
+  useEffect(() => {
     document.getElementById('fname').focus();
   }, []);
 
   const {
-    enteredValue: firstName,
+    value: firstName,
     isValid: firstNameIsValid,
     hasError: firstNameError,
     valueChangeHandler: firstNameChangeHandler,
@@ -16,7 +16,7 @@ const BasicForm = (props) => {
    } = useInput(value => value.trim() !== '');
 
   const {
-    enteredValue: lastName,
+    value: lastName,
     isValid: lastNameIsValid,
     hasError: lastNameError,
     valueChangeHandler: lastNameChangeHandler,
@@ -25,7 +25,7 @@ const BasicForm = (props) => {
   } = useInput(value => value.trim() !== '');
 
   const {
-    enteredValue: email,
+    value: email,
     isValid: emailIsValid,
     hasError: emailError,
     valueChangeHandler: emailChangeHandler,
@@ -42,7 +42,7 @@ const BasicForm = (props) => {
   function formSubmissionHandler(event) {
     event.preventDefault();
 
-    if (!firstNameIsValid || !lastNameIsValid || !emailIsValid) {
+    if (!formIsValid) {
       return;
     }
 
