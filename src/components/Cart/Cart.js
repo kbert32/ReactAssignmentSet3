@@ -23,8 +23,8 @@ const Cart = (props) => {
 
   const cartItemAddHandler = (item) => {
     cartCtx.addItem(item);
-  };
-
+  }
+  
   const cartItems = (
     <ul className={classes['cart-items']}>
       {cartCtx.items.map((item) => (
@@ -47,7 +47,7 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {order && <div><Checkout /></div>}
+      {order && <div><Checkout onCancel={props.onClose} /></div>}
       {!order && <div className={classes.actions}>
         <button className={classes['button--alt']} onClick={props.onClose}>
           Close
