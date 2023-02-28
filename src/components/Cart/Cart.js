@@ -73,11 +73,11 @@ const Cart = (props) => {
     </>
   );
 
-  const isLoadingMessage = <p>Sending order...</p>;
+  const isLoadingMessage = <p className={classes.messages}>Sending order...</p>;
 
   const submittedMessage = (
     <>
-      <p>Your order has been sent!</p>
+      <p className={classes.messages}>Your order has been sent!</p>
       <div className={classes.actions}>
         <button className={classes.button} onClick={props.onClose}>Close</button>
       </div>
@@ -86,7 +86,7 @@ const Cart = (props) => {
 
   const errorMessage = (
     <>
-      <p>Error: {error}</p>
+      <p className={classes.messages}>Error: {error}</p>
       <div className={classes.actions}>
         <button className={classes.button} onClick={props.onClose}>Close</button>
       </div>
