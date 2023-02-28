@@ -58,6 +58,10 @@
   color: #ca3e51;
 }
 
+.invalid p {
+  color: #ca3e51;
+}
+
 .invalid input {
   border-color: #aa0b20;
   background-color: #ffeff1;

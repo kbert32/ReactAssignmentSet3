@@ -6,16 +6,13 @@ import { useContext } from 'react';
 
 const Checkout = (props) => {
   const cartCtx = useContext(CartContext);
-  console.log (cartCtx);
-  console.log(cartCtx.items);
-  console.log(cartCtx.totalAmount);
+  
   const {
     value: name,
     isValid: nameIsValid,
     hasError: nameError,
     valueChangeHandler: nameChangeHandler,
     inputBlurHandler: nameBlurHandler,
-    reset: nameReset
   } = useInput(value => value.trim() !== '');
   
   const {
@@ -24,7 +21,6 @@ const Checkout = (props) => {
     hasError: streetError,
     valueChangeHandler: streetChangeHandler,
     inputBlurHandler: streetBlurHandler,
-    reset: streetReset
   } = useInput(value => value.trim() !== '');
   
   const {
@@ -33,8 +29,7 @@ const Checkout = (props) => {
     hasError: postalError,
     valueChangeHandler: postalChangeHandler,
     inputBlurHandler: postalBlurHandler,
-    reset: postalReset
-  } = useInput(value => value.trim() !== '');
+  } = useInput(value => value.length === 5);
   
   const {
     value: city,
@@ -42,7 +37,6 @@ const Checkout = (props) => {
     hasError: cityError,
     valueChangeHandler: cityChangeHandler,
     inputBlurHandler: cityBlurHandler,
-    reset: cityReset
   } = useInput(value => value.trim() !== '');
   
   let formIsValid = false;
@@ -60,21 +54,16 @@ const Checkout = (props) => {
       return;
     }
 
-    const customer = {
-      city,
-      name,
-      postalCode: postal,
-      street,
-    };
-
     const orderObject = {
       orderedItems: cartCtx.items,
       total: cartCtx.totalAmount,
-      user: customer,
+      user: {
+        city,
+        name,
+        postalCode: postal,
+        street,
+      },
     };
-
-    const print = JSON.stringify(orderObject);
-    console.log(print);
 
     sendOrder({
       url: 'https://food-order-app-57817-default-rtdb.firebaseio.com/orders.json', 
@@ -82,15 +71,10 @@ const Checkout = (props) => {
       headers: {
           'Content-Type': 'application/json'
         },
-      body: JSON.stringify(orderObject),
-    }, data => console.log(data));
+      body: orderObject,
+    });
 
-    nameReset();
-    streetReset();
-    postalReset();
-    cityReset();
-    cartCtx.items = [];
-    cartCtx.totalAmount = 0;
+    cartCtx.reset();
     props.onCancel();
   };
 
@@ -114,7 +98,7 @@ const Checkout = (props) => {
       <div className={postalClasses}>
         <label htmlFor='postal'>Postal Code</label>
         <input type='text' id='postal' value={postal} onChange={postalChangeHandler} onBlur={postalBlurHandler} />
-        {postalError && <p>We need a valid postal code.</p>}
+        {postalError && <p>We need a valid postal code. (five digits)</p>}
       </div>
       <div className={cityClasses}>
         <label htmlFor='city'>City</label>

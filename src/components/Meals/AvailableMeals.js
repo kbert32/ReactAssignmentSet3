@@ -7,10 +7,10 @@ import useHttp from '../customHooks/useHttp';
 const AvailableMeals = () => {
   const [DUMMY_MEALS, setDummyMeals] = useState([]);
   const {isLoading, sendRequest: getMeals} = useHttp();
-  
+  console.log(isLoading);
   useEffect(() => {
     getMeals({url: 'https://food-order-app-57817-default-rtdb.firebaseio.com/meals.json'}, formatData);
-
+  // console.log(isLoading);
     const mealsArr = [];
 
     function formatData(mealsObj) {

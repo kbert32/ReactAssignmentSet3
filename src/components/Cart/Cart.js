@@ -59,3 +59,8 @@ const Cart = (props) => {
 };
 
 export default Cart;
+
+
+//Add:
+// a 'submitting' message
+// a 'has submitted' message with a close button

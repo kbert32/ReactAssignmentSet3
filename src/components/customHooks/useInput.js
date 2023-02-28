@@ -15,10 +15,6 @@ const inputStateReducer = (state, action) => {      //actual Reducer function ca
         return {value: state.value, isTouched: true};   //it is common convention to use a switch statement instead of 'if' 
     }
 
-    if (action.type === 'RESET') {
-        return {value: '', isTouched: false};
-    }
-
     return inputStateReducer;                       //***NOT SURE WHY WE ARE RETURNING inputStateReducer, ASK JOHN***
 };                                                  //***Reactjs.org examples show this being handled with a 'throw error' statement***/
 
@@ -41,19 +37,12 @@ function useInput(validateValue) {
         // setIsTouched(true);
     };
 
-    function reset() {
-        inputDispatch({type: 'RESET'});
-        // setEnteredValue('');
-        // setIsTouched(false);
-    };
-
     return {
         value: inputState.value,                    //using Reducer object property value instead of state value
         isValid: valueIsValid,
         hasError: hasError,
         valueChangeHandler: valueChangeHandler,
         inputBlurHandler: inputBlurHandler,
-        reset: reset
     };
 };
 
