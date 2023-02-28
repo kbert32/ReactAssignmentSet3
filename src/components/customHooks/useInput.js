@@ -1,4 +1,3 @@
-// import { useState } from "react";        //converted to using useReducer
 import { useReducer } from "react";
 
 const initialInputState = {                 //initial object values for Reducer
@@ -19,8 +18,6 @@ const inputStateReducer = (state, action) => {      //actual Reducer function ca
 };                                                  //***Reactjs.org examples show this being handled with a 'throw error' statement***/
 
 function useInput(validateValue) {
-    // const [enteredValue, setEnteredValue] = useState('');            //converted to useReducer
-    // const [isTouched, setIsTouched] = useState(false);
 
     const [inputState, inputDispatch] = useReducer(inputStateReducer, initialInputState);       //Reducer statement, states are now handled with 'inputState' object
 
@@ -29,12 +26,10 @@ function useInput(validateValue) {
 
     function valueChangeHandler(event) {
         inputDispatch({type: 'INPUT', value: event.target.value});
-        // setEnteredValue(event.target.value);                         //converted to useReducer
     };
 
     function inputBlurHandler(event) {
         inputDispatch({type: 'BLUR'});
-        // setIsTouched(true);
     };
 
     return {
@@ -51,10 +46,9 @@ export default useInput;
 //return can also be written as:
 
 // {
-//     value: enteredValue,
+//     value: inputState.value,
 //     isValid: valueIsValid,
 //     hasError,
 //     valueChangeHandler,
 //     inputBlurHandler,
-//     reset
 // }
