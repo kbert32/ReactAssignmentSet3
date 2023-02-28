@@ -1,4 +1,3 @@
-import useHttp from '../customHooks/useHttp';
 import classes from './Checkout.module.css';
 import useInput from '../customHooks/useInput';
 import CartContext from '../../store/cart-context';
@@ -44,8 +43,6 @@ const Checkout = (props) => {
   if (nameIsValid && streetIsValid && postalIsValid && cityIsValid) {
     formIsValid = true;
   }
-
-  const {sendRequest: sendOrder} = useHttp();
   
   const confirmHandler = (event) => {
     event.preventDefault();
@@ -65,17 +62,8 @@ const Checkout = (props) => {
       },
     };
 
-    sendOrder({
-      url: 'https://food-order-app-57817-default-rtdb.firebaseio.com/orders.json', 
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-        },
-      body: orderObject,
-    });
-
+    props.orderSubmit(orderObject);
     cartCtx.reset();
-    props.onCancel();
   };
 
   const nameClasses = `${classes.control} ${!nameError ? '' : classes.invalid}`;

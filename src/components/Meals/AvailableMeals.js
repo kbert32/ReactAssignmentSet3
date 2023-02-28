@@ -6,11 +6,11 @@ import useHttp from '../customHooks/useHttp';
 
 const AvailableMeals = () => {
   const [DUMMY_MEALS, setDummyMeals] = useState([]);
-  const {isLoading, sendRequest: getMeals} = useHttp();
-  console.log(isLoading);
+  const {isLoading, error, sendRequest: getMeals} = useHttp();
+  
   useEffect(() => {
     getMeals({url: 'https://food-order-app-57817-default-rtdb.firebaseio.com/meals.json'}, formatData);
-  // console.log(isLoading);
+  
     const mealsArr = [];
 
     function formatData(mealsObj) {
@@ -42,6 +42,7 @@ const AvailableMeals = () => {
       <Card>
         {isLoading && <p>Loading...</p>}
         {!isLoading && <ul>{mealsList}</ul>}
+        {!isLoading && error && <p>Error {error}</p>}
       </Card>
     </section>
   );
