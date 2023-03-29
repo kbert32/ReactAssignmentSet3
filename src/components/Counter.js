@@ -1,26 +1,39 @@
 import classes from './Counter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
+import { counterActions } from '../store/counter';
 
 const Counter = () => {
   const dispatch = useDispatch();
-  const counter = useSelector(state => state.counter);  //using useSelector automatically sets up a subscription so the
-                                                    //component will always be re-executed when the 'counter' value is updated
+  const counter = useSelector(state => state.counter.counter);  //using useSelector automatically sets up a subscription so the
+  const show = useSelector(state => state.counter.showCounter); //component will always be re-executed when the 'counter' value is updated
+
   function incrementHandler() {
-    dispatch({type: 'increment'});
+    dispatch(counterActions.increment());
   };
 
+  // function increaseHandler() {
+  //   dispatch({type: 'increase', amount: 10});    //without redux toolkit
+  // };
+
+  function increaseHandler() {
+    dispatch(counterActions.increase(10));  //{type: SOME_UNIQUE_IDENTIFIER, payload: 10}
+  };                                        //'payload' is a reserved key name
+
   function decrementHandler() {
-    dispatch({type: 'decrement'});
+    dispatch(counterActions.decrement());
   };
                                                     
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+    dispatch(counterActions.toggleCounter());
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {show && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
+        <button onClick={increaseHandler}>Increase by 10</button>
         <button onClick={decrementHandler}>Decrement</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
